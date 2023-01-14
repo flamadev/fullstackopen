@@ -1,6 +1,20 @@
 import ReactDOM from 'react-dom/client';
 import React, { useState } from 'react';
 
+const Statistics = (props) => {
+  return (
+    <div>
+      <h1>Statistics</h1>
+      <p>Good:{props.good}</p>
+      <p>Neutral:{props.neutral}</p>
+      <p>Bad:{props.bad}</p>
+      <p>Total:{props.total}</p>
+      <p>Average:{props.average}</p>
+      <p>Positive:{props.positive} %</p>
+    </div>
+  );
+};
+
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
@@ -28,15 +42,14 @@ const App = () => {
       <button onClick={buttonGood}>good</button>
       <button onClick={buttonNeutral}>neutral</button>
       <button onClick={buttonBad}>bad</button>
-      <div>
-        <h1>Statistics</h1>
-        <p>Good:{good}</p>
-        <p>Neutral:{neutral}</p>
-        <p>Bad:{bad}</p>
-        <p>Total:{totalClicks}</p>
-        <p>Average:{average}</p>
-        <p>Positive:{positive} %</p>
-      </div>
+      <Statistics
+        good={good}
+        neutral={neutral}
+        bad={bad}
+        total={totalClicks}
+        average={average}
+        positive={positive}
+      />
     </div>
   );
 };
