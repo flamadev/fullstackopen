@@ -2,9 +2,12 @@ import ReactDOM from 'react-dom/client';
 import React, { useState } from 'react';
 
 const Statistic = (props) => (
-  <p>
-    {props.texto} {props.value} {props.texto === 'Positive:' ? '%' : ''}
-  </p>
+  <tr>
+    <td>{props.texto}</td>
+    <td>
+      {props.value} {props.texto === 'Positive:' ? '%' : ''}
+    </td>
+  </tr>
 );
 
 const Button = (props) => (
@@ -18,14 +21,16 @@ const Statistics = (props) => {
       {props.total === 0 ? (
         <p>{'No feedback given'}</p>
       ) : (
-        <>
-          <Statistic texto="Good:" value={props.good} />
-          <Statistic texto="Neutral:" value={props.neutral} />
-          <Statistic texto="Bad:" value={props.bad} />
-          <Statistic texto="Total:" value={props.total} />
-          <Statistic texto="Average:" value={props.average} />
-          <Statistic texto="Positive:" value={props.positive} />
-        </>
+        <table>
+          <tbody>
+            <Statistic texto="Good:" value={props.good} />
+            <Statistic texto="Neutral:" value={props.neutral} />
+            <Statistic texto="Bad:" value={props.bad} />
+            <Statistic texto="Total:" value={props.total} />
+            <Statistic texto="Average:" value={props.average} />
+            <Statistic texto="Positive:" value={props.positive} />
+          </tbody>
+        </table>
       )}
     </div>
   );
