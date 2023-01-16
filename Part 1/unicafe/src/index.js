@@ -5,12 +5,18 @@ const Statistics = (props) => {
   return (
     <div>
       <h1>Statistics</h1>
-      <p>Good:{props.good}</p>
-      <p>Neutral:{props.neutral}</p>
-      <p>Bad:{props.bad}</p>
-      <p>Total:{props.total}</p>
-      <p>Average:{props.average}</p>
-      <p>Positive:{props.positive} %</p>
+      {props.total === 0 ? (
+        <p>{props.message}</p>
+      ) : (
+        <>
+          <p>Good:{props.good}</p>
+          <p>Neutral:{props.neutral}</p>
+          <p>Bad:{props.bad}</p>
+          <p>Total:{props.total}</p>
+          <p>Average:{props.average}</p>
+          <p>Positive:{props.positive} %</p>
+        </>
+      )}
     </div>
   );
 };
@@ -36,6 +42,8 @@ const App = () => {
   const average = totalClicks / 3;
   const positive = totalClicks === 0 ? 0 : (good * 100) / totalClicks;
 
+  let message = '';
+
   return (
     <div>
       <h1>Give feedback</h1>
@@ -50,6 +58,7 @@ const App = () => {
         average={average}
         positive={positive}
       />
+      {message}
     </div>
   );
 };
