@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Filter from './components/Filter';
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -20,9 +21,7 @@ const App = () => {
       alert(`${newName} is already added to phonebook`);
       return;
     }
-    const newPersons = [...persons, { name: newName, phone: newPhone }];
-    setPersons(newPersons);
-    setFilteredPersons(newPersons);
+    setPersons([...persons, { name: newName, phone: newPhone }]);
   }
 
   function handleNumber(e) {
@@ -41,14 +40,16 @@ const App = () => {
       setFilteredPersons(persons);
       return;
     }
-
+    const filteredPersons = persons.filter((person) =>
+      person.name.toUpperCase().includes(searchValue.toUpperCase())
+    );
     setFilteredPersons(filteredPersons);
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
-      filter show with: <input onChange={handleFilter} />
+      <Filter handleFilter={handleFilter} />
       <h2>add a new</h2>
       <form onSubmit={handleSubmit}>
         <div>
