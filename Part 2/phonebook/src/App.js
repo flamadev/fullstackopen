@@ -6,6 +6,13 @@ const App = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    const isSameName = persons.some(
+      (person) => person.name.toUpperCase() === newName.toUpperCase()
+    );
+    if (isSameName) {
+      alert(`${newName} ya está en la guía`);
+      return;
+    }
     setPersons([...persons, { name: newName }]);
   }
 
