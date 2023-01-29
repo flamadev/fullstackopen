@@ -22,7 +22,7 @@ const App = () => {
   //     .then((response) => response.json())
   //     .then((json) => {
   //     });
-  // }, []);
+  // }, [])
 
   function handleSubmit(e) {
     e.preventDefault();

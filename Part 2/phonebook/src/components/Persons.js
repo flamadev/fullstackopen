@@ -5,7 +5,7 @@ const Persons = (props) => {
   return (
     <ul>
       {props.filteredPersons.map((person) => (
-        <Person name={person.name} phone={person.phone} key={person.name} />
+        <Person name={person.name} number={person.number} key={person.name} />
       ))}
     </ul>
   );

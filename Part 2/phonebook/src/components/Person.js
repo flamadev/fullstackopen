@@ -4,7 +4,7 @@ const Person = (props) => {
   return (
     <li>
       {`${props.name}
-            ${props.phone}`}
+            ${props.number}`}
     </li>
   );
 };
