@@ -15,6 +15,7 @@ function App() {
       .then((countries) => setCountries(countries));
     setSearchCountry(e.target.value);
   }
+
   let countriesToShow = [];
   for (const country of countries) {
     const name = country.name.common;
@@ -28,11 +29,17 @@ function App() {
 
   return (
     <div>
-      <Filter handleInputSearch={handleInputSearch} />
+      <Filter
+        handleInputSearch={handleInputSearch}
+        searchInputValue={searchCountry}
+      />
       {countriesToShow.length === 1 ? (
         <Country country={countriesToShow[0]} />
       ) : (
-        <Countries countries={countriesToShow} />
+        <Countries
+          countries={countriesToShow}
+          setSearchCountry={setSearchCountry}
+        />
       )}
     </div>
   );
