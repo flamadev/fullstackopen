@@ -1,4 +1,4 @@
-import React from 'react';
+import Weather from './Weather';
 
 const Country = ({ country }) => {
   const languages = Object.values(country.languages);
@@ -6,6 +6,7 @@ const Country = ({ country }) => {
   const capital = country.capital[0];
   const population = country.population;
   const imrUrl = country.flags.png;
+
   return (
     <div>
       <h2>{countryName}</h2>
@@ -19,6 +20,7 @@ const Country = ({ country }) => {
       </ul>
 
       <img src={imrUrl} alt="flag" />
+      <Weather country={countryName} />
     </div>
   );
 };
