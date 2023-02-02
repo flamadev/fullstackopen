@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
-import axios from 'axios';
+import personService from './components/services/notes';
+
 const App = () => {
   const [persons, setPersons] = useState([]);
 
@@ -11,10 +12,7 @@ const App = () => {
   const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons').then((response) => {
-      const { data } = response;
-      setPersons(data);
-    });
+    personService.getPersons().then((data) => setPersons(data));
   }, []);
 
   function handleSubmit(e) {
@@ -28,11 +26,9 @@ const App = () => {
     }
     const newPerson = { name: newName, number: newPhone };
     setPersons([...persons, newPerson]);
+    personService.createPerson(newPerson);
     setNewName('');
     setPhone('');
-
-    // Agregar una nueva persona al servidor.
-    axios.post('http://localhost:3001/persons', newPerson).then();
   }
 
   function handleNumber(e) {
