@@ -17,13 +17,6 @@ const App = () => {
     });
   }, []);
 
-  // useEffect(() => {
-  //   fetch('http://localhost:3001/persons')
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //     });
-  // }, [])
-
   function handleSubmit(e) {
     e.preventDefault();
     const isSameName = persons.some(
@@ -33,7 +26,13 @@ const App = () => {
       alert(`${newName} is already added to phonebook`);
       return;
     }
-    setPersons([...persons, { name: newName, number: newPhone }]);
+    const newPerson = { name: newName, number: newPhone };
+    setPersons([...persons, newPerson]);
+    setNewName('');
+    setPhone('');
+
+    // Agregar una nueva persona al servidor.
+    axios.post('http://localhost:3001/persons', newPerson).then();
   }
 
   function handleNumber(e) {
