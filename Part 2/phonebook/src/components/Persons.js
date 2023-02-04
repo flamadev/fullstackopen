@@ -5,7 +5,13 @@ const Persons = (props) => {
   return (
     <ul>
       {props.filteredPersons.map((person) => (
-        <Person name={person.name} number={person.number} key={person.name} />
+        <Person
+          name={person.name}
+          number={person.number}
+          key={person.name}
+          id={person.id}
+          handleDelete={props.handleDelete}
+        />
       ))}
     </ul>
   );

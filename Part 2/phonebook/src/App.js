@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
-import personService from './components/services/notes';
+import personService from './components/services/persons';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -10,7 +10,6 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newPhone, setPhone] = useState('');
   const [searchValue, setSearchValue] = useState('');
-
   useEffect(() => {
     personService.getPersons().then((data) => setPersons(data));
   }, []);
@@ -24,9 +23,14 @@ const App = () => {
       alert(`${newName} is already added to phonebook`);
       return;
     }
-    const newPerson = { name: newName, number: newPhone };
-    setPersons([...persons, newPerson]);
-    personService.createPerson(newPerson);
+    const newPerson = {
+      name: newName,
+      number: newPhone,
+    };
+
+    personService
+      .createPerson(newPerson)
+      .then((lastPersonAdded) => setPersons([...persons, lastPersonAdded]));
     setNewName('');
     setPhone('');
   }
@@ -46,6 +50,15 @@ const App = () => {
     setSearchValue(searchValue);
   }
 
+  function handleDelete(id) {
+    const indexDelete = persons.findIndex((person) => person.id === id);
+    const idPersonDelete = persons[indexDelete].id;
+    if (window.confirm(`Delete ${persons[indexDelete].name}?`)) {
+      personService.deletePerson(idPersonDelete);
+      setPersons(persons.filter((person) => person.id !== idPersonDelete));
+    }
+  }
+
   const filteredPersons = persons.filter((person) =>
     person.name.toUpperCase().includes(searchValue.toUpperCase())
   );
@@ -62,7 +75,7 @@ const App = () => {
         newPhone={newPhone}
       />
       <h2>Numbers</h2>
-      <Persons filteredPersons={filteredPersons} />
+      <Persons filteredPersons={filteredPersons} handleDelete={handleDelete} />
     </div>
   );
 };
