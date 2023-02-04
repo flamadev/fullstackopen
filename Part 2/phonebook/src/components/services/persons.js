@@ -14,9 +14,17 @@ function deletePerson(id) {
   return axios.delete(`${url}/${id}`).then((response) => response.data);
 }
 
+function putPerson(person) {
+  console.log(person);
+  return axios
+    .put(`${url}/${person.id}`, person)
+    .then((response) => response.data);
+}
+
 const personService = {
   getPersons,
   createPerson,
   deletePerson,
+  putPerson,
 };
 export default personService;

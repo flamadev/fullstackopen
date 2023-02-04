@@ -16,23 +16,36 @@ const App = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const isSameName = persons.some(
+    const indexName = persons.findIndex(
       (person) => person.name.toUpperCase() === newName.toUpperCase()
     );
-    if (isSameName) {
-      alert(`${newName} is already added to phonebook`);
-      return;
-    }
     const newPerson = {
       name: newName,
       number: newPhone,
     };
+    if (indexName === -1) {
+      if (newPhone === '') return alert('Add a phone number');
+      personService
+        .createPerson(newPerson)
+        .then((lastPersonAdded) => setPersons([...persons, lastPersonAdded]));
+      setNewName('');
+      setPhone('');
+      return setPersons([...persons, newPerson]);
+    }
 
-    personService
-      .createPerson(newPerson)
-      .then((lastPersonAdded) => setPersons([...persons, lastPersonAdded]));
-    setNewName('');
-    setPhone('');
+    if (
+      window.confirm(
+        `${newName} is already added to phonebook, replace the old number with a new one?`
+      )
+    ) {
+      const updatePerson = { ...persons[indexName], number: newPhone };
+      personService.putPerson(updatePerson).then((updatePerson) => {
+        const updatedPersons = persons.map((person) =>
+          person.id === updatePerson.id ? updatePerson : person
+        );
+        setPersons(updatedPersons);
+      });
+    }
   }
 
   function handleNumber(e) {
