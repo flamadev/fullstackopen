@@ -4,7 +4,6 @@ const Message = (props) => {
   const message = {
     backgroundColor: '#90EE90',
     color: 'black',
-    fontStyle: 'italic',
     fontSize: 16,
     borderRadius: 8,
     border: 'solid',

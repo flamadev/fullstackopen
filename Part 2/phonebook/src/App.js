@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
-import personService from './services/persons';
+import personService from './services/personsService';
 import Message from './components/Message';
 
 const App = () => {
@@ -46,12 +46,21 @@ const App = () => {
       )
     ) {
       const updatePerson = { ...persons[indexName], number: newPhone };
-      personService.putPerson(updatePerson).then((updatePerson) => {
-        const updatedPersons = persons.map((person) =>
-          person.id === updatePerson.id ? updatePerson : person
+      personService
+        .putPerson(updatePerson)
+        .then((updatePerson) => {
+          const updatedPersons = persons.map((person) =>
+            person.id === updatePerson.id ? updatePerson : person
+          );
+          setPersons(updatedPersons);
+        })
+        .catch((error) =>
+          setTextMessage(`There was an error, please try again.`)
         );
-        setPersons(updatedPersons);
-      });
+      setTimeout(() => setTextMessage(null), 2000);
+    } else {
+      setNewName('');
+      setPhone('');
     }
   }
 
@@ -74,11 +83,15 @@ const App = () => {
     const indexDelete = persons.findIndex((person) => person.id === id);
     const idPersonDelete = persons[indexDelete].id;
     if (window.confirm(`Delete ${persons[indexDelete].name}?`)) {
+      setTextMessage(
+        `Information of ${persons[indexDelete].name}has already been remove from server`
+      );
+      setTimeout(() => setTextMessage(null), 2000);
       personService.deletePerson(idPersonDelete);
+
       setPersons(persons.filter((person) => person.id !== idPersonDelete));
     }
   }
-
   const filteredPersons = persons.filter((person) =>
     person.name.toUpperCase().includes(searchValue.toUpperCase())
   );
