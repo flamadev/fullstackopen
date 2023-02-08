@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
-import personService from './components/services/persons';
+import personService from './services/persons';
+import Message from './components/Message';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -10,6 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newPhone, setPhone] = useState('');
   const [searchValue, setSearchValue] = useState('');
+  const [textMessage, setTextMessage] = useState(null);
   useEffect(() => {
     personService.getPersons().then((data) => setPersons(data));
   }, []);
@@ -17,17 +19,22 @@ const App = () => {
   function handleSubmit(e) {
     e.preventDefault();
     const indexName = persons.findIndex(
-      (person) => person.name.toUpperCase() === newName.toUpperCase()
+      (person) => person.name.toUpperCase() === newName.trim().toUpperCase()
     );
     const newPerson = {
-      name: newName,
+      name: newName.trim(),
       number: newPhone,
     };
     if (indexName === -1) {
       if (newPhone === '') return alert('Add a phone number');
-      personService
-        .createPerson(newPerson)
-        .then((lastPersonAdded) => setPersons([...persons, lastPersonAdded]));
+      personService.createPerson(newPerson).then((lastPersonAdded) => {
+        setPersons([...persons, lastPersonAdded]);
+        newName
+          ? setTextMessage(`Added ${newName}`)
+          : setTextMessage(`Added ${newPhone}`);
+        setTimeout(() => setTextMessage(null), 2000);
+      });
+
       setNewName('');
       setPhone('');
       return setPersons([...persons, newPerson]);
@@ -78,6 +85,10 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <div className="message">
+        <Message>{textMessage}</Message>
+      </div>
+
       <Filter handleFilter={handleFilter} />
       <h2>add a new</h2>
       <PersonForm
