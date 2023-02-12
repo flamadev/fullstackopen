@@ -2,8 +2,8 @@ import React from 'react';
 
 const Filter = (props) => {
   return (
-    <div>
-      filter show with: <input onChange={props.handleFilter} />
+    <div className="filter-container">
+      Filter show with: <input onChange={props.handleFilter} />
     </div>
   );
 };

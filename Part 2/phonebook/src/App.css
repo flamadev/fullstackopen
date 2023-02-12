@@ -1,38 +1,105 @@
-.App {
-  text-align: center;
-}
+@import url('https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap');
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  min-height: 100vh;
 }
 
-.App-link {
-  color: #61dafb;
+h1 {
+  padding: 1rem 0 2rem 0;
+  font-family: 'Leckerli One';
+  font-size: 3rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.button {
+  border: 1px solid #a5a58d;
+  padding: 0.3em 1em;
+  font-size: small;
+  background-color: #b7b7a4;
+}
+
+.button:hover {
+  background-color: #eddcd2;
+}
+
+.container {
+  background-color: #ddbea9;
+  border: 4px solid #a5a58d;
+  width: fit-content;
+  border-radius: 5px;
+  padding: 2rem;
+}
+
+.person {
+  list-style-type: circle;
+  margin-top: 3px;
+}
+.person-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.person-form_field,
+.person-form_button {
+  padding: 0.5rem 0;
+}
+
+.person-form,
+.filter-container {
+  background-color: #cb997e;
+  padding: 1rem;
+  border-radius: 5px;
+}
+.person-form {
+  display: grid;
+  grid-template-columns: 1fr 50px;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+}
+.person-form-container,
+.persons-container {
+  margin-top: 1rem;
+}
+.person-form-container h2,
+.persons-container h2 {
+  margin-bottom: 1rem;
+}
+.person-form_field input,
+.filter-container input {
+  padding: 0.2em 0.5em;
+  border: 3px solid transparent;
+  outline: none;
+}
+
+.person-form_field input:focus,
+.filter-container input:focus {
+  padding: 0.2em 0.5em;
+  border-color: #b7b7a4;
+}
+
+.person-form_field {
+  grid-column: 1;
+  display: flex;
+  justify-content: space-around;
+}
+.person-form_field input {
+  flex-grow: 1;
+  margin-left: 5px;
+}
+
+.person-form_button {
+  grid-column: 2;
+  grid-row: 1/3;
+  align-self: end;
+}
+
+.message {
+  position: absolute;
+  top: 0;
+  margin-top: 10px;
 }

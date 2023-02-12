@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './App.css';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
@@ -32,7 +33,7 @@ const App = () => {
         newName
           ? setTextMessage(`Added ${newName}`)
           : setTextMessage(`Added ${newPhone}`);
-        setTimeout(() => setTextMessage(null), 2000);
+        setTimeout(() => setTextMessage(null), 3000);
       });
 
       setNewName('');
@@ -86,7 +87,7 @@ const App = () => {
       setTextMessage(
         `Information of ${persons[indexDelete].name}has already been remove from server`
       );
-      setTimeout(() => setTextMessage(null), 2000);
+      setTimeout(() => setTextMessage(null), 3000);
       personService.deletePerson(idPersonDelete);
 
       setPersons(persons.filter((person) => person.id !== idPersonDelete));
@@ -96,23 +97,31 @@ const App = () => {
     person.name.toUpperCase().includes(searchValue.toUpperCase())
   );
   return (
-    <div>
-      <h2>Phonebook</h2>
+    <div className="app">
       <div className="message">
         <Message>{textMessage}</Message>
       </div>
-
-      <Filter handleFilter={handleFilter} />
-      <h2>add a new</h2>
-      <PersonForm
-        handleInput={handleInput}
-        newName={newName}
-        handleNumber={handleNumber}
-        handleSubmit={handleSubmit}
-        newPhone={newPhone}
-      />
-      <h2>Numbers</h2>
-      <Persons filteredPersons={filteredPersons} handleDelete={handleDelete} />
+      <h1>Phonebook</h1>
+      <div className="container">
+        <Filter handleFilter={handleFilter} />
+        <div className="person-form-container">
+          <h2>Add a new</h2>
+          <PersonForm
+            handleInput={handleInput}
+            newName={newName}
+            handleNumber={handleNumber}
+            handleSubmit={handleSubmit}
+            newPhone={newPhone}
+          />
+        </div>
+        <div className="persons-container">
+          <h2>Contacts</h2>
+          <Persons
+            filteredPersons={filteredPersons}
+            handleDelete={handleDelete}
+          />
+        </div>
+      </div>
     </div>
   );
 };
