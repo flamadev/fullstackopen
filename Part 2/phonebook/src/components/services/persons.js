@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:3001/persons';
+const url = 'https://fullstackopen-backend-phonebook-dev-brmx.1.ie-1.fl0.io/';
 
 function getPersons() {
   return axios.get(url).then((response) => response.data);
