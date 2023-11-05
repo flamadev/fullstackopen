@@ -1,21 +1,17 @@
 import axios from 'axios';
 
-const url = 'https://fullstackopen-backend-phonebook-dev-brmx.1.ie-1.fl0.io';
+const url = '/api/persons';
 
 function getPersons() {
-  return axios.get(`${url}/api/persons`).then((response) => response.data);
+  return axios.get(`${url}`).then((response) => response.data);
 }
 
 function createPerson(newPerson) {
-  return axios
-    .post(`${url}/api/persons`, newPerson)
-    .then((response) => response.data);
+  return axios.post(`${url}`, newPerson).then((response) => response.data);
 }
 
 function deletePerson(id) {
-  return axios
-    .delete(`${url}/api/persons/${id}`)
-    .then((response) => response.data);
+  return axios.delete(`${url}/${id}`).then((response) => response.data);
 }
 
 function putPerson(person) {
